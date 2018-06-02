@@ -25,6 +25,12 @@ function shuffle(array) {
     return array;
 }
 
+document.querySelector('.deck').addEventListener('click', function(evt) {
+    if (evt.target.className.includes('card')) {
+        evt.target.className = "card open show";
+    }
+});
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
