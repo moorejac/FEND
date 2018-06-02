@@ -47,7 +47,7 @@ let openCards = [];
 let moves = 0;
 let matches = 0;
 
-document.querySelector('.restart').addEventListener('click', function() { location.reload(); });
+document.querySelector('.restart').addEventListener('click', function() { window.location.reload(); });
 document.querySelector('.deck').addEventListener('click', function(evt) {
     
     if (evt.target.className === 'card') {

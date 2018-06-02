@@ -107,3 +107,35 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+/*
+ * Styles for Congratulations modal
+ */
+
+ .modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: black; 
+ }
+
+ .modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 66%;
+    background-color: white
+ }
+
+ .modal-content button {
+     border: none;
+     padding: 8px 16px;
+     cursor: pointer;
+     color: white;
+     background-color: #4CAF50;
+ }
