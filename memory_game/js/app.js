@@ -25,10 +25,40 @@ function shuffle(array) {
     return array;
 }
 
+
+
+const cards = ['fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb'];
+const cardDeck = cards.concat(cards);
+
+let openCards = [];
+let moves = 0;
+
+const card_list = cardDeck.map(card => {
+    `<li class="card"><i class="fa ${card}"></i></li>`
+});
+
 document.querySelector('.deck').addEventListener('click', function(evt) {
-    if (evt.target.className.includes('card')) {
-        evt.target.className = "card open show";
-    }
+    
+    if (evt.target.className === 'card') {
+        
+        if (openCards.length < 2) {
+            openCards.push(evt.target);
+            evt.target.classList.add('open', 'show');
+            
+            if (openCards.length === 2) {
+                // perform comparison
+                if (openCards[0].dataset.cardType === openCards[1].dataset.cardType) {
+                    openCards.map(card => card.classList = ('card match'));               
+                    openCards = [];
+                } else {
+                    setTimeout(function() {
+                        openCards.map(card => card.classList.remove('open', 'show'));               
+                        openCards = [];
+                    }, 1000);
+                }
+            }
+        }
+    };
 });
 
 
