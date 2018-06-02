@@ -18,12 +18,18 @@ function createCard(card) {
     return `<li class="card" data-card-type="${card}"><i class="fa ${card}"></i></li>`;
 }
 
+const starHTML = '<li><i class="fa fa-star"></i></li>';
+
+function updateScore() {
+    document.querySelector('.moves').innerHTML = (moves/2).toString();    
+    document.querySelector('.stars').innerHTML += starHTML;
+}
+
 
 /*
  * Create a list that holds all of your cards
  */
 const cards = ['fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb'];
-
 
 /*
  * Display the cards on the page
@@ -39,7 +45,7 @@ document.querySelector('.deck').innerHTML = cardHTML.join('');
 
 let openCards = [];
 let moves = 0;
-
+let matches = 0;
 
 
 document.querySelector('.deck').addEventListener('click', function(evt) {
@@ -47,22 +53,25 @@ document.querySelector('.deck').addEventListener('click', function(evt) {
     if (evt.target.className === 'card') {
         
         if (openCards.length < 2) {
-            openCards.push(evt.target);
             evt.target.classList.add('open', 'show');
+            openCards.push(evt.target);
             
             if (openCards.length === 2) {
                 // perform comparison
                 if (openCards[0].dataset.cardType === openCards[1].dataset.cardType) {
                     openCards.map(card => card.classList = ('card match'));               
+                    matches++;
                     openCards = [];
                 } else {
                     setTimeout(function() {
                         openCards.map(card => card.classList.remove('open', 'show'));               
                         openCards = [];
-                    }, 1000);
+                    }, 750);
                 }
             }
         }
+        moves++;
+        if (moves % 2 === 0) {updateScore()}
     };
 });
 
