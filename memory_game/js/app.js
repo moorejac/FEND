@@ -1,12 +1,5 @@
 /*
 TODO:
-- Add star functionality
-    5 stars: 8-10 moves
-    4 stars: 11-12 moves
-    3 stars: 13-14 moves
-    2 stars: 15-16 moves
-    1 star: >= 17 moves
-    - ABS(moves - 8) % 2 == 0
 - Add timer functionality
 - Refactor
 - Add advanced styling
@@ -27,6 +20,15 @@ function shuffle(array) {
     return array;
 }
 
+// Timer function adapted from https://stackoverflow.com/a/7910506
+function gameTimer() {
+    setInterval( function() {
+        sec++;
+        const timers = document.querySelectorAll('.seconds');
+        for (const timer of timers) { timer.innerHTML = sec; }
+    }, 1000)
+}
+
 function createCard(card) {
     return `<li class="card" data-card-type="${card}"><i class="fa ${card}"></i></li>`;
 }
@@ -42,13 +44,14 @@ function cardsMatch(cards) {
 function updateScore() {
     moves++;
     totalMoves = moves / 2;
+
     if (moves % 2 === 0) {
         for (const counter of moveCounters) { counter.innerHTML = totalMoves.toString(); }
     }
 }
 
 function updateStars() {
-    if (moves > 16 && moves % 4 === 0 && stars.childElementCount > 0 ) {
+    if (moves > 16 && moves % 4 === 0 && stars.childElementCount > 1 ) {
         stars.lastElementChild.remove();
         document.querySelector('.star-total').innerHTML = (stars.childElementCount).toString();
     }
@@ -56,9 +59,11 @@ function updateStars() {
 
 function winGameCheck() {
     cards.pop();
+
     if (cards.length === 0) {
         document.querySelector('.container').classList = ('container hide');
         document.querySelector('.modal').classList = ('modal show');
+        clearInterval(gameTimer);
     }
 }
 
@@ -74,7 +79,7 @@ let cards = ['fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
+ 
 const cardDeck = shuffle(cards.concat(cards));
 const cardHTML = cardDeck.map(card => createCard(card));
 document.querySelector('.deck').innerHTML = cardHTML.join('');
@@ -83,11 +88,14 @@ let stars = document.querySelector('.stars');
 
 let openCards = [];
 let moves = 0;
+let sec = 0;
 
 document.querySelector('.restart').addEventListener('click', function() { window.location.reload(); });
 document.querySelector('.deck').addEventListener('click', function(evt) {
     
     if (evt.target.className === 'card') {
+
+        if (sec === 0 ) { gameTimer(); }
         
         if (openCards.length < 2) {
             evt.target.classList.add('open', 'show');
@@ -104,7 +112,7 @@ document.querySelector('.deck').addEventListener('click', function(evt) {
                     setTimeout(function() {
                         setCardClasses(openCards,'card');      
                         openCards = [];         
-                    }, 750);
+                    }, 500);
                 }
             }
         }
