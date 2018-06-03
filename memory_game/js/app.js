@@ -21,13 +21,7 @@ function shuffle(array) {
 }
 
 // Timer function adapted from https://stackoverflow.com/a/7910506
-function gameTimer() {
-    setInterval( function() {
-        sec++;
-        const timers = document.querySelectorAll('.seconds');
-        for (const timer of timers) { timer.innerHTML = sec; }
-    }, 1000)
-}
+
 
 function createCard(card) {
     return `<li class="card" data-card-type="${card}"><i class="fa ${card}"></i></li>`;
@@ -39,6 +33,12 @@ function setCardClasses(cards, classes) {
 
 function cardsMatch(cards) {
     return cards[0].dataset.cardType === cards[1].dataset.cardType
+}
+
+function updateSeconds() {
+    sec++;
+    const timers = document.querySelectorAll('.seconds');
+    for (const timer of timers) { timer.innerHTML = sec; }
 }
 
 function updateScore() {
@@ -63,7 +63,7 @@ function winGameCheck() {
     if (cards.length === 0) {
         document.querySelector('.container').classList = ('container hide');
         document.querySelector('.modal').classList = ('modal show');
-        clearInterval(gameTimer);
+         clearInterval(gameTimer);
     }
 }
 
@@ -89,13 +89,14 @@ let stars = document.querySelector('.stars');
 let openCards = [];
 let moves = 0;
 let sec = 0;
+let gameTimer;
 
 document.querySelector('.restart').addEventListener('click', function() { window.location.reload(); });
 document.querySelector('.deck').addEventListener('click', function(evt) {
     
     if (evt.target.className === 'card') {
 
-        if (sec === 0 ) { gameTimer(); }
+        if (sec === 0 ) { gameTimer = setInterval(updateSeconds, 1000); }
         
         if (openCards.length < 2) {
             evt.target.classList.add('open', 'show');

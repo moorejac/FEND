@@ -116,6 +116,12 @@ h1 {
     display: inline-block;
 }
 
+.score-panel .timer .seconds {
+    width: 50px;
+    text-align: right;
+    display: inline-block;
+}
+
 .score-panel .restart {
     float: right;
     cursor: pointer;
