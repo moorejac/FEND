@@ -21,7 +21,7 @@ body {
     font-family: 'Coda', cursive;
 }
 
-.container {
+.container.show {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,6 +81,11 @@ h1 {
     font-size: 33px;
 }
 
+.deck .card.not-match {
+    background: #d62828;
+    font-size: 33px;
+}
+
 /*
  * Styles for the Score Panel
  */
@@ -112,14 +117,18 @@ h1 {
  * Styles for Congratulations modal
  */
 
- .modal {
-    display: flex;
+ .modal.hide {
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
     width: 100%;
     background-color: black; 
+ }
+
+ .modal.show {
+     display: flex;
  }
 
  .modal-content {

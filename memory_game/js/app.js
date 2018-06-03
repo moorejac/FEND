@@ -22,7 +22,6 @@ const starHTML = '<li><i class="fa fa-star"></i></li>';
 
 function updateScore() {
     document.querySelector('.moves').innerHTML = (moves/2).toString();    
-    document.querySelector('.stars').innerHTML += starHTML;
 }
 
 
@@ -63,8 +62,9 @@ document.querySelector('.deck').addEventListener('click', function(evt) {
                     matches++;
                     openCards = [];
                 } else {
+                    openCards.map(card => card.classList = ('card not-match'));
                     setTimeout(function() {
-                        openCards.map(card => card.classList.remove('open', 'show'));               
+                        openCards.map(card => card.classList = ('card'));               
                         openCards = [];
                     }, 750);
                 }
