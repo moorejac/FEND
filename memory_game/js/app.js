@@ -19,6 +19,7 @@ function createCard(card) {
 
 function setCardClasses(cards, classes) {
     cards.map(card => card.classList = classes);
+    openCards = [];
 }
 
 function cardsMatch(cards) {
@@ -37,9 +38,12 @@ function updateStars() {
 
 }
 
-function winGame() {
-    document.querySelector('.container').classList = ('container hide');
-    document.querySelector('.modal').classList = ('modal show');
+function winGameCheck() {
+    cards.pop;
+    if (cards.length === 0) {
+        document.querySelector('.container').classList = ('container hide');
+        document.querySelector('.modal').classList = ('modal show');
+    }
 }
 
 
@@ -76,14 +80,11 @@ document.querySelector('.deck').addEventListener('click', function(evt) {
                 // perform comparison
                 if (cardsMatch(openCards)) {
                     setCardClasses(openCards, 'card match');               
-                    cards.pop;
-                    if (cards.length === 0) { winGame(); }
-                    openCards = [];
+                    winGameCheck();
                 } else {
                     setCardClasses(openCards,'card not-match');
                     setTimeout(function() {
                         setCardClasses(openCards,'card');               
-                        openCards = [];
                     }, 750);
                 }
             }
