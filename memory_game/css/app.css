@@ -28,6 +28,10 @@ body {
     flex-direction: column;
 }
 
+.container.hide {
+    display: none;
+}
+
 h1 {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
@@ -119,16 +123,16 @@ h1 {
 
  .modal.hide {
     display: none;
+ }
+
+ .modal.show {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
     width: 100%;
     background-color: black; 
- }
-
- .modal.show {
-     display: flex;
  }
 
  .modal-content {

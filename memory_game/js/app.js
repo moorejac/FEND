@@ -13,22 +13,40 @@ function shuffle(array) {
     return array;
 }
 
-
 function createCard(card) {
     return `<li class="card" data-card-type="${card}"><i class="fa ${card}"></i></li>`;
 }
 
-const starHTML = '<li><i class="fa fa-star"></i></li>';
+function setCardClasses(cards, classes) {
+    cards.map(card => card.classList = classes);
+}
+
+function cardsMatch(cards) {
+    return cards[0].dataset.cardType === cards[1].dataset.cardType
+}
 
 function updateScore() {
-    document.querySelector('.moves').innerHTML = (moves/2).toString();    
+    moves++;
+    totalMoves = moves / 2;
+    if (moves % 2 === 0) {
+        for (const counter of moveCounters) { counter.innerHTML = totalMoves.toString();}
+    }
+}
+
+function updateStars() {
+
+}
+
+function winGame() {
+    document.querySelector('.container').classList = ('container hide');
+    document.querySelector('.modal').classList = ('modal show');
 }
 
 
 /*
  * Create a list that holds all of your cards
  */
-const cards = ['fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb'];
+let cards = ['fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb'];
 
 /*
  * Display the cards on the page
@@ -40,11 +58,10 @@ const cards = ['fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','
 const cardDeck = shuffle(cards.concat(cards));
 const cardHTML = cardDeck.map(card => createCard(card));
 document.querySelector('.deck').innerHTML = cardHTML.join('');
-
+const moveCounters = document.querySelectorAll('.moves');
 
 let openCards = [];
 let moves = 0;
-let matches = 0;
 
 document.querySelector('.restart').addEventListener('click', function() { window.location.reload(); });
 document.querySelector('.deck').addEventListener('click', function(evt) {
@@ -57,21 +74,21 @@ document.querySelector('.deck').addEventListener('click', function(evt) {
             
             if (openCards.length === 2) {
                 // perform comparison
-                if (openCards[0].dataset.cardType === openCards[1].dataset.cardType) {
-                    openCards.map(card => card.classList = ('card match'));               
-                    matches++;
+                if (cardsMatch(openCards)) {
+                    setCardClasses(openCards, 'card match');               
+                    cards.pop;
+                    if (cards.length === 0) { winGame(); }
                     openCards = [];
                 } else {
-                    openCards.map(card => card.classList = ('card not-match'));
+                    setCardClasses(openCards,'card not-match');
                     setTimeout(function() {
-                        openCards.map(card => card.classList = ('card'));               
+                        setCardClasses(openCards,'card');               
                         openCards = [];
                     }, 750);
                 }
             }
         }
-        moves++;
-        if (moves % 2 === 0) {updateScore()}
+        updateScore();
     };
 });
 
