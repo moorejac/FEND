@@ -13,6 +13,23 @@ class Enemy {
     }
 }
 
+class Player {
+    constructor() {
+
+    }
+
+    update(dt) {
+
+    }
+
+    render() {
+
+    }
+
+    handleInput() {
+        
+    }
+}
 
 var Enemy = function() {
     // Variables applied to each of our instances go here,
