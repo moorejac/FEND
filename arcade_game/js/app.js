@@ -22,6 +22,14 @@ class Player {
         this.x = 2*101;
         this.y = 1*101;
         this.sprite = 'images/char-boy.png';
+
+        this.keyPressTable = {
+            "": (onGameLoad => {}),
+            "up": (upKey => { (this.y >= 0 ? this.y - 101 : this.y = 101) }),
+            "down": (downKey => { this.y = this.y + 101; }),
+            "left": (function() {}),
+            "right": (function() {})
+        };
     }
 
     update(dt) {
@@ -32,8 +40,10 @@ class Player {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
-    handleInput() {
-
+    handleInput(keyInput = "") {
+        this.keyPressTable[keyInput]();
+        console.log(this.y);
+        console.log(this.x);
     }
 }/*
 var Enemy = function() {
