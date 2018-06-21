@@ -13,9 +13,15 @@ class Enemy {
     }
 }
 
+// Now write your own player class
+// This class requires an update(), render() and
+// a handleInput() method.
+
 class Player {
     constructor() {
-
+        this.x = 2*101;
+        this.y = 1*101;
+        this.sprite = 'images/char-boy.png';
     }
 
     update(dt) {
@@ -23,14 +29,13 @@ class Player {
     }
 
     render() {
-
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
     handleInput() {
-        
-    }
-}
 
+    }
+}/*
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -52,16 +57,17 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
+*/
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
+enemy1 = new Enemy;
+enemy2 = new Enemy;
+enemy3 = new Enemy;
+const allEnemies = [enemy1, enemy2, enemy3]
 // Place the player object in a variable called player
 
+const player = new Player;
 
 
 // This listens for key presses and sends the keys to your
