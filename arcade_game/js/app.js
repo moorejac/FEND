@@ -20,12 +20,15 @@ class Enemy {
 class Player {
     constructor() {
         this.x = 2*101;
-        this.y = 1*101;
+        this.y = 4*101;
         this.sprite = 'images/char-boy.png';
 
         this.keyPressTable = {
             "": (onGameLoad => {}),
-            "up": (upKey => { (this.y >= 0 ? this.y - 101 : this.y = 101) }),
+            "up": (upKey => {
+                console.log(this.y);
+                this.y > 101 ? (this.y = this.y - 95) : (this.y = 404);
+            }),
             "down": (downKey => { this.y = this.y + 101; }),
             "left": (function() {}),
             "right": (function() {})
@@ -42,8 +45,6 @@ class Player {
 
     handleInput(keyInput = "") {
         this.keyPressTable[keyInput]();
-        console.log(this.y);
-        console.log(this.x);
     }
 }/*
 var Enemy = function() {
