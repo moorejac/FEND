@@ -23,16 +23,29 @@ class Enemy {
 
 class Player {
     constructor() {
-        this.x = 2*101;
-        this.y = 3*107;
+        this.xIncrement = 101;
+        this.yIncrement = 83;
+
+        this.startX = 2 * this.xIncrement;
+        this.startY = 3.875 * this.yIncrement;
+        
+        this.minTop = 1 * this.xIncrement;
+        this.maxBottom = 4 * this.xIncrement;
+        this.minLeft = 1;
+        this.maxRight = 4 * this.xIncrement;
+
+        this.x = this.startX;
+        this.y = this.startY;
         this.sprite = 'images/char-boy.png';
 
         this.keyPressTable = {
             "": (onGameLoad => {}),
-            "up": (upKey => { this.y > 101 ? (this.y -= 83) : (this.y = 3*107); }),
-            "down": (downKey => { this.y += 83; }),
-            "left": (leftKey => { this.x -= 101; }),
-            "right": (rightKey => { this.x += 101; })
+            "up": (upKey => { if (this.y > this.minTop) { this.y -= 83; }
+                              else { this.x = this.startX; this.y = this.startY; }
+                            }),
+            "down": (downKey => { this.y < this.maxBottom ? this.y += 83 : this.y; }),
+            "left": (leftKey => { this.x > this.minLeft ? this.x -= this.xIncrement : this.x; }),
+            "right": (rightKey => { this.x < this.maxRight ? this.x += this.xIncrement : this.x; })
         };
     }
 
