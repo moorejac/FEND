@@ -22,16 +22,16 @@ class Enemy {
 class Player {
     constructor() {
         this.x = 2*101;
-        this.y = 4*83;
+        this.y = 3*101;
         this.sprite = 'images/char-boy.png';
 
         this.keyPressTable = {
             "": (onGameLoad => {}),
             "up": (upKey => {
                 console.log(this.y);
-                this.y > 101 ? (this.y = this.y - 95) : (this.y = 404);
+                this.y > 101 ? (this.y = this.y - 83) : (this.y = 3*101);
             }),
-            "down": (downKey => { this.y = this.y + 95; }),
+            "down": (downKey => { this.y = this.y + 83; }),
             "left": (function() {}),
             "right": (function() {})
         };
