@@ -3,15 +3,17 @@ class Enemy {
     constructor() {
         this.x = 0;
         this.y = 62 + ((Math.floor(Math.random() * 3)) * 83);
+        this.movement = Math.floor(Math.random() * 3) + 1;
         this.sprite = 'images/enemy-bug.png';
     }
 
     update(dt) {
-
+        this.x = this.x + this.movement;
     }
 
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        this.update();
     }
 }
 
@@ -22,14 +24,14 @@ class Enemy {
 class Player {
     constructor() {
         this.x = 2*101;
-        this.y = 3*101;
+        this.y = 3*107;
         this.sprite = 'images/char-boy.png';
 
         this.keyPressTable = {
             "": (onGameLoad => {}),
             "up": (upKey => {
                 console.log(this.y);
-                this.y > 101 ? (this.y = this.y - 83) : (this.y = 3*101);
+                this.y > 101 ? (this.y = this.y - 83) : (this.y = 3*107);
             }),
             "down": (downKey => { this.y = this.y + 83; }),
             "left": (function() {}),
