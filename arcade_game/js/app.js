@@ -1,6 +1,8 @@
 // Enemies our player must avoid
 class Enemy {
     constructor() {
+        this.x = 0;
+        this.y = 62 + ((Math.floor(Math.random() * 3)) * 83);
         this.sprite = 'images/enemy-bug.png';
     }
 
@@ -20,7 +22,7 @@ class Enemy {
 class Player {
     constructor() {
         this.x = 2*101;
-        this.y = 4*101;
+        this.y = 4*83;
         this.sprite = 'images/char-boy.png';
 
         this.keyPressTable = {
@@ -29,7 +31,7 @@ class Player {
                 console.log(this.y);
                 this.y > 101 ? (this.y = this.y - 95) : (this.y = 404);
             }),
-            "down": (downKey => { this.y = this.y + 101; }),
+            "down": (downKey => { this.y = this.y + 95; }),
             "left": (function() {}),
             "right": (function() {})
         };
