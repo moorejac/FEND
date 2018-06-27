@@ -29,13 +29,10 @@ class Player {
 
         this.keyPressTable = {
             "": (onGameLoad => {}),
-            "up": (upKey => {
-                console.log(this.y);
-                this.y > 101 ? (this.y = this.y - 83) : (this.y = 3*107);
-            }),
-            "down": (downKey => { this.y = this.y + 83; }),
-            "left": (function() {}),
-            "right": (function() {})
+            "up": (upKey => { this.y > 101 ? (this.y -= 83) : (this.y = 3*107); }),
+            "down": (downKey => { this.y += 83; }),
+            "left": (leftKey => { this.x -= 101; }),
+            "right": (rightKey => { this.x += 101; })
         };
     }
 
