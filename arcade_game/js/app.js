@@ -5,7 +5,7 @@ class Enemy {
         this.yIncrement = 83;
 
         this.minTop = 0;
-        this.maxBottom = 62;
+        this.maxBottom = 72.625;
         this.minLeft = -1 * this.xIncrement;
         this.maxRight = 5 * this.xIncrement;
 
@@ -22,6 +22,13 @@ class Enemy {
 
     update(dt) {
         this.x = this.x + this.movement;
+        if (
+            (this.x + 83) >= player.x &&
+            (this.x + this.xIncrement) <= (player.x + player.xIncrement) &&
+            player.y === this.y
+        ) {
+            player.respawn();
+        }
     }
 
     render() {
@@ -60,7 +67,7 @@ class Player {
         this.y = this.startY;
         this.sprite = 'images/char-boy.png';
 
-        this.keyPressTable = {
+        this.keyPress = {
             "": (onGameLoad => {}),
             "up": (upKey => { if (this.y > this.minTop) { this.y -= 83; }
                               else { this.x = this.startX; this.y = this.startY; }
@@ -71,18 +78,19 @@ class Player {
         };
     }
 
-    update() {
-
-    }
+    update() {}
 
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
+    respawn() {
+        this.x = this.startX;
+        this.y = this.startY;
+    }
+
     handleInput(keyInput = "") {
-        console.log(this.x);
-        console.log(this.y);
-        this.keyPressTable[keyInput]();
+        this.keyPress[keyInput]();
     }
 }/*
 var Enemy = function() {
@@ -107,10 +115,7 @@ Enemy.prototype.update = function(dt) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 enemy1 = new Enemy;
-enemy2 = new Enemy;
-enemy3 = new Enemy;
-enemy4 = new Enemy;
-const allEnemies = [enemy1, enemy2, enemy3, enemy4]
+const allEnemies = [enemy1];
 // Place the player object in a variable called player
 
 const player = new Player;
