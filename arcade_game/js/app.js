@@ -23,7 +23,7 @@ class Enemy {
     update(dt) {
         this.x = this.x + this.movement;
         if (
-            (this.x + 83) >= player.x &&
+            (this.x + 62) >= player.x &&
             (this.x + this.xIncrement) <= (player.x + player.xIncrement) &&
             player.y === this.y
         ) {
@@ -69,10 +69,10 @@ class Player {
 
         this.keyPress = {
             "": (onGameLoad => {}),
-            "up": (upKey => { if (this.y > this.minTop) { this.y -= 83; }
+            "up": (upKey => { if (this.y > this.minTop) { this.y -= this.yIncrement; }
                               else { this.x = this.startX; this.y = this.startY; }
                             }),
-            "down": (downKey => { this.y < this.maxBottom ? this.y += 83 : this.y; }),
+            "down": (downKey => { this.y < this.maxBottom ? this.y += this.yIncrement : this.y; }),
             "left": (leftKey => { this.x > this.minLeft ? this.x -= this.xIncrement : this.x; }),
             "right": (rightKey => { this.x < this.maxRight ? this.x += this.xIncrement : this.x; })
         };
@@ -115,7 +115,9 @@ Enemy.prototype.update = function(dt) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 enemy1 = new Enemy;
-const allEnemies = [enemy1];
+enemy2 = new Enemy;
+enemy3 = new Enemy;
+const allEnemies = [enemy1, enemy2, enemy3];
 // Place the player object in a variable called player
 
 const player = new Player;
