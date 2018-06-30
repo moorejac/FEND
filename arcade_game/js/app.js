@@ -1,9 +1,22 @@
 // Enemies our player must avoid
 class Enemy {
     constructor() {
-        this.x = 0;
-        this.y = 62 + ((Math.floor(Math.random() * 3)) * 83);
+        this.xIncrement = 101;
+        this.yIncrement = 83;
+
+        this.minTop = 0;
+        this.maxBottom = 62;
+        this.minLeft = -1 * this.xIncrement;
+        this.maxRight = 5 * this.xIncrement;
+
         this.movement = Math.floor(Math.random() * 3) + 1;
+
+        this.startX = -1 * this.xIncrement;
+        this.startY = this.maxBottom + ((Math.floor(Math.random() * 3)) * this.yIncrement);
+
+        this.x = this.startX;
+        this.y = this.startY;
+
         this.sprite = 'images/enemy-bug.png';
     }
 
@@ -13,7 +26,16 @@ class Enemy {
 
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-        this.update();
+        this.x < this.maxRight ? this.update() : this.respawn();
+    }
+
+    respawn() {
+        this.movement = Math.floor(Math.random() * 3) + 1;
+        this.startX = -1 * this.xIncrement;
+        this.startY = this.maxBottom + ((Math.floor(Math.random() * 3)) * this.yIncrement);
+
+        this.x = this.startX;
+        this.y = this.startY;
     }
 }
 
@@ -25,14 +47,14 @@ class Player {
     constructor() {
         this.xIncrement = 101;
         this.yIncrement = 83;
-
-        this.startX = 2 * this.xIncrement;
-        this.startY = 3.875 * this.yIncrement;
-        
+      
         this.minTop = 1 * this.xIncrement;
         this.maxBottom = 4 * this.xIncrement;
         this.minLeft = 1;
         this.maxRight = 4 * this.xIncrement;
+
+        this.startX = 2 * this.xIncrement;
+        this.startY = 3.875 * this.yIncrement;
 
         this.x = this.startX;
         this.y = this.startY;
@@ -49,7 +71,7 @@ class Player {
         };
     }
 
-    update(dt) {
+    update() {
 
     }
 
@@ -58,6 +80,8 @@ class Player {
     }
 
     handleInput(keyInput = "") {
+        console.log(this.x);
+        console.log(this.y);
         this.keyPressTable[keyInput]();
     }
 }/*
@@ -89,7 +113,8 @@ Enemy.prototype.render = function() {
 enemy1 = new Enemy;
 enemy2 = new Enemy;
 enemy3 = new Enemy;
-const allEnemies = [enemy1, enemy2, enemy3]
+enemy4 = new Enemy;
+const allEnemies = [enemy1, enemy2, enemy3, enemy4]
 // Place the player object in a variable called player
 
 const player = new Player;
