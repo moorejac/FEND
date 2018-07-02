@@ -7,7 +7,7 @@ class Enemy {
 
         // set enemy boundaries
         this.minTop = 0;
-        this.maxBottom = 62.25;
+        this.maxBottom = .75 * this.yIncrement;
         this.minLeft = -1 * this.xIncrement; // instantiate off screen
         this.maxRight = 5 * this.xIncrement; // reset after moving off screen
 
@@ -39,9 +39,11 @@ class Enemy {
             this.respawn();
         }
         // collission detection
-        if (this.x + 62 >= player.x &&
-            this.x + this.xIncrement <= player.x + player.xIncrement &&
-            player.y === this.y) {
+        if (
+        this.x + (.75 * this.xIncrement) >= player.x &&
+        this.x - (.25 * this.xIncrement) <= player.x &&
+        player.y === this.y
+        ) {
             player.respawn();
         }
     }
@@ -114,11 +116,11 @@ class Player {
 // Instantiate objects.
 // Place all enemy objects in an array called allEnemies
 enemy1 = new Enemy;
-enemy2 = new Enemy;
-enemy3 = new Enemy;
-enemy4 = new Enemy;
-
-const allEnemies = [enemy1, enemy2, enemy3, enemy4];
+// enemy2 = new Enemy;
+// enemy3 = new Enemy;
+// enemy4 = new Enemy;
+// , enemy2, enemy3, enemy4
+const allEnemies = [enemy1];
 
 // Place the player object in a variable called player
 const player = new Player;
