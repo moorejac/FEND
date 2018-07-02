@@ -94,15 +94,18 @@ class Player {
         };
     }
 
+
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
+    // respawn player with starting coordinates
     respawn() {
         this.x = this.startX;
         this.y = this.startY;
     }
 
+    
     handleInput(keyInput = "") {
         this.keyPress[keyInput]();
     }
