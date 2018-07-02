@@ -1,6 +1,6 @@
 # FEND
 Udactiy Front-End Nano Degree Projects
 
-* ## [Memory Game](https://github.com/moorejac/FEND/tree/memory_game)
+* ## [Memory Game](https://github.com/moorejac/FEND/tree/master/memory_game)
 
-* ## [Arcade Game](https://github.com/moorejac/FEND/tree/arcade_game)
+* ## [Arcade Game](https://github.com/moorejac/FEND/tree/master/arcade_game)
