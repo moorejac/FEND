@@ -54,14 +54,23 @@ $(function() {
 
     /* TODO: Write a new test suite named "The menu" */
     describe('The menu', function() {
+        let menuHidden;
 
+        beforeEach(function() {
+            menuHidden = $('body').hasClass('menu-hidden');
+            console.log(menuHidden);
+        });
+
+        afterEach(function() {
+            $('.menu-icon-link').trigger('click'); 
+        });
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
         it('is hidden by default', function() {
-            expect($('.menu-hidden')).toBeDefined();
+            expect(menuHidden).toBeTruthy();
         });
 
         /* TODO: Write a test that ensures the menu changes
@@ -69,11 +78,15 @@ $(function() {
         * should have two expectations: does the menu display when
         * clicked and does it hide when clicked again.
         */
-        
+
         it('should show when clicked', function() {
+        
+            expect(menuHidden).toBeFalsy();
+        });
+
+        it('should hide when clicked again', function() {
             $('.menu-icon-link').trigger('click');
-            
-            expect($('body').className).not.toBeDefined();
+            expect($('body').className).toEqual('menu-hidden');            
         });
 
 
