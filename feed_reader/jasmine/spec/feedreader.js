@@ -58,7 +58,6 @@ $(function() {
 
         beforeEach(function() {
             menuHidden = $('body').hasClass('menu-hidden');
-            console.log(menuHidden);
         });
 
         afterEach(function() {
@@ -78,15 +77,13 @@ $(function() {
         * should have two expectations: does the menu display when
         * clicked and does it hide when clicked again.
         */
-
         it('should show when clicked', function() {
-        
             expect(menuHidden).toBeFalsy();
         });
 
         it('should hide when clicked again', function() {
-            $('.menu-icon-link').trigger('click');
-            expect($('body').className).toEqual('menu-hidden');            
+            expect(menuHidden).toBeTruthy();
+            $('.menu-icon-link').trigger('click');        
         });
 
 
