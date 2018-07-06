@@ -62,8 +62,8 @@ $(function() {
         });
 
         it('should have at least one .entry element in the .feed container', function(done) {
-            let container = $('.feed');
-            expect(container.length).toBe(1);
+            let entries = $('.feed .entry');
+            expect(entries.length).toBeGreaterThan(0);
             done();
         });
     });
@@ -71,23 +71,27 @@ $(function() {
 
     describe('New Feed Selection', function() {
 
-        // ensure content changes when new feed is loaded
         let originalFeed;
         let newFeed;
 
+        // ensure content changes when new feed is loaded
         beforeEach(function(done) {
-            originalFeed = $('.feed').html(); // grab feed 0 content
-            loadFeed(1, () => { done(); });  // load feed 1
-        });
 
+            loadFeed(0, function() { 
+                originalFeed = $('.feed').html(); // get content of feed container
+                
+                loadFeed(1, function() {
+                    newFeed = $('.feed').html(); // get content of feed container again
+                    done();
+                });
+
+                done();
+            });
+        });
+        
         it('should have different feed content', function(done) {
-            newFeed = $('.feed').html(); // grab feed 1 content
-            expect(newFeed).not.toEqual(originalFeed);
+            expect(originalFeed).not.toEqual(newFeed);
             done();
-        });
-
-        afterAll(function() {
-            loadFeed(0); // reset to original feed
         });
     });
 }());
