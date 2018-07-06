@@ -63,6 +63,7 @@ $(function() {
         afterEach(function() {
             $('.menu-icon-link').trigger('click'); 
         });
+
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
@@ -83,10 +84,11 @@ $(function() {
 
         it('should hide when clicked again', function() {
             expect(menuHidden).toBeTruthy();
-            $('.menu-icon-link').trigger('click'); // show menu so final trigger click closes it
         });
 
-
+        afterAll(function() {
+            $('.menu-icon-link').trigger('click'); // close menu
+        });
     });
 
 
@@ -116,5 +118,22 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        let originalFeed;
+        let newFeed;
+
+        beforeEach(function(done) {
+            originalFeed = $('.feed').html(); // grab feed 0 content
+            loadFeed(1, () => { done(); });  // load feed 1
+        });
+
+        it('should have different feed content', function(done) {
+            newFeed = $('.feed').html(); // grab feed 1 content
+            expect(newFeed).not.toEqual(originalFeed);
+            done();
+        });
+
+        afterAll(function() {
+            loadFeed(0); // reset to original feed
+        });
     });
 }());
