@@ -83,7 +83,7 @@ $(function() {
 
         it('should hide when clicked again', function() {
             expect(menuHidden).toBeTruthy();
-            $('.menu-icon-link').trigger('click');        
+            $('.menu-icon-link').trigger('click'); // show menu so final trigger click closes it
         });
 
 
